@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: opsone_postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./platform/postgres/init:/docker-entrypoint-initdb.d
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U opsone -d comerce" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:
