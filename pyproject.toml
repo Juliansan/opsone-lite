@@ -1,5 +1,18 @@
 [project]
 name = "opsone-lite"
 version = "0.1.0"
+description = "Local-first DataOps control plane learning lab"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "psycopg[binary]>=3.1.18",
+    "pydantic-settings>=2.2.1"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0"
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
